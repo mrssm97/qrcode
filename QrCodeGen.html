@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="qrcode.css" />
+    <title>QRCode</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+      integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <nav>
+      <div class="navbar">
+        <img src="qrcode.jpg" alt="" />
+      </div>
+    </nav>
+
+    <main>
+      <div class="container d-flex">
+        <form action="">
+          <label for="text"
+            ><h1>Generate your personal QR Code</h1>
+            <p>Paste your URL</p>
+          </label>
+
+          <input
+            type="text"
+            name="text"
+            id="text"
+            value="Your-URL"
+            placeholder="URL"
+          />
+        </form>
+        <div class="row">
+          <div class="qrcode"></div>
+          <a title="Download qrcode here">Download Image</a>
+        </div>
+      </div>
+    </main>
+    <!-- <script src="script.js"></script> -->
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let input = document.querySelector("input");
+      let button = document.querySelector("button");
+      var qrcode = new QRCode(document.querySelector(".qrcode"), {
+        text: input.value,
+        width: 250,
+        height: 250,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+      });
+      input.addEventListener("input", function (e) {
+        qrcode.clear();
+        qrcode.makeCode(e.target.value);
+      });
+      // button.addEventListener("click", function (e) {
+      //   let imgUrl = document.querySelector(".qrcode img").getAttribute("src");
+      //   const link = document.createElement("a");
+      //   link.href = imgUrl;
+      //   link.download = true;
+      //   link.click();
+      // });
+      document.querySelector("a").addEventListener("click", function (e) {
+        let imgUrl = document.querySelector(".qrcode img").getAttribute("src");
+        e.target.href = imgUrl;
+        e.target.download = "qrcode-img";
+      });
+    });
+  </script>
+</html>
